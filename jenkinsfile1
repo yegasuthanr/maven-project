@@ -2,11 +2,11 @@ pipeline {
     agent any
     tools {
         maven 'localMaven'
-        echo '${localMaven}'
     }
     stages {
         stage('Build') {
             steps {
+                echo '${localMaven}'
                 sh 'mvn clean package'
             }
             post {
