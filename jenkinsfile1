@@ -7,7 +7,7 @@ pipeline {
             }
             post {
                 sucess {
-                    echo 'Archeiving artifacts....'
+                    echo 'now archeiving....'
                     archieveArtifacts artifacts: '**/target/*.war'
                 }
             }
