@@ -9,6 +9,10 @@ pipeline {
          pollSCM('* * * * *')
      }
 
+     tools {
+        maven 'localMaven'
+     }
+
 stages{
         stage('Build'){
             steps {
@@ -17,7 +21,7 @@ stages{
             post {
                 success {
                     echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    archiveArtifacts artifacts: '**/*.war'
                 }
             }
         }
