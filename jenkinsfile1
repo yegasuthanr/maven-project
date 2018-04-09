@@ -7,13 +7,13 @@ pipeline {
 
     triggers {
          pollSCM('* * * * *')
-     }
+    }
 
-     tools {
-        maven 'localMaven'
-     }
+    tools {
+       maven 'localMaven'
+    }
 
-stages{
+    stages{
         stage('Build'){
             steps {
                 bat 'mvn clean package'
@@ -38,16 +38,17 @@ stages{
                     steps {
                         timeout(time: 5, unit: 'DAYS') {
                         input message: 'Approve Production Deployment'
+                        }
+                        build job: 'Deploy-to-Prod'
                     }
-                    build job: 'Deploy-to-Prod'
-                }
 
-                post {
-                    success {
-                        echo 'Code deployed to Production'
-                    }
-                    failure {
-                        echo 'Code failed to deploy'
+                    post {
+                        success {
+                            echo 'Code deployed to Production'
+                        }
+                        failure {
+                            echo 'Code failed to deploy'
+                        }
                     }
                 }
             }
